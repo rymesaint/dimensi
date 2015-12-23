@@ -1,0 +1,54 @@
+body {
+	background: #fff url("../images/dojo.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.alert-message {
+	text-align: center;
+	background:rgba(98, 98, 103, 0.86);
+	border-radius: 5px;
+	padding: 15px;
+	position: relative;
+	top:50px;
+	color: #eee;
+	font-weight: bolder;
+	font-size: 20px;
+	box-shadow: 0 0 5px #222;
+	cursor: default;
+}
+.wrapper-block-enter {
+	position:relative;
+	top:200px;
+}
+
+.button {
+	width: 250px;
+	height: 250px;
+	border-radius: 10px;
+	box-shadow: 0 0 5px 2px #565656;
+	text-indent: -999px;
+	cursor: pointer;
+}
+
+.enter-anime {
+	display: block;
+	background: #333 url("../images/enter-anime.png") no-repeat;
+	transition:all .8s ease-in-out;
+}
+
+.enter-hentai {
+	display: block;
+	background: #333 url("../images/enter-hentai.png") no-repeat;
+	transition:all .8s ease-in-out;
+}
+
+.enter-anime:hover {
+	background: #B6E807 url("../images/enter-anime.png") no-repeat;
+}
+
+.enter-hentai:hover {
+	background: #BE4DD2 url("../images/enter-hentai.png") no-repeat;	
+}

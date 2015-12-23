@@ -1,5 +1,6 @@
 */config/development
 */logs/log-*.php
+<<<<<<< HEAD
 !*/logs/index.html
 */cache/*
 !*/cache/index.html
@@ -55,3 +56,9 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+=======
+*/logs/!index.html
+*/cache/*
+*/cache/!index.html
+*/cache/!.htaccess
+>>>>>>> db480c9649ae2d0469f7542690af95311aae00ff

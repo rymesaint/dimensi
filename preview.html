@@ -1,0 +1,990 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Font preview</title>
+
+
+    <style type="text/css">
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    #site-canvas {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .icons-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      text-align: center;
+      word-spacing: -0.26rem;
+    }
+
+    .icons-list li {
+      width: 10rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 1rem;
+      margin: 0.5rem;
+      display: inline-block;
+      word-spacing: normal;
+      vertical-align: top;
+    }
+
+    .ico {
+      display: inline-block;
+      height: 2rem;
+      width: 2rem;
+      line-height: 2rem;
+      font-size: 1rem;
+      text-align: center;
+      background-color: #ddd;
+      border-radius: 4px;
+      color: #444;
+    }
+
+    .label {
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+
+    .icons-list.size-32 .ico {
+      height: 4rem;
+      width: 4rem;
+      line-height: 4rem;
+      font-size: 2rem;
+    }
+
+    .icons-list.size-48 .ico {
+      height: 5rem;
+      width: 5rem;
+      line-height: 5rem;
+      font-size: 3rem;
+    }
+
+    .switcher {
+      margin: 1rem 0;
+      padding: 0;
+      text-align: center;
+      word-spacing: -0.26rem;
+    }
+
+    .switcher li {
+      display: inline-block;
+      word-spacing: normal;
+      vertical-align: top;
+      margin: 0 0.5rem;
+    }
+
+    .switcher li a {
+      text-decoration: none;
+      background-color: #ddd;
+      color: #444;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      border-radius: 4px;
+    }
+
+    .switcher li a.active {
+      background-color: #FFBB4D;
+      color: #fff;
+    }
+  
+    </style>
+
+
+    <style type="text/css">
+      @font-face {
+        font-family: "collecticons";
+        src: url(data:application/font-woff;charset=utf-8;base64,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) format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      .collecticon, [class^="collecticon-"], [class*=" collecticon-"] {
+        font-family: "collecticons";
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        vertical-align: bottom;
+
+        // Better Font Rendering
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      
+      .collecticon-arrow-down:before {
+        content: "\EA01"
+      }
+      
+      .collecticon-arrow-left:before {
+        content: "\EA02"
+      }
+      
+      .collecticon-arrow-loop:before {
+        content: "\EA03"
+      }
+      
+      .collecticon-arrow-return:before {
+        content: "\EA04"
+      }
+      
+      .collecticon-arrow-right:before {
+        content: "\EA05"
+      }
+      
+      .collecticon-arrow-spin-clockwise:before {
+        content: "\EA06"
+      }
+      
+      .collecticon-arrow-up:before {
+        content: "\EA07"
+      }
+      
+      .collecticon-bell:before {
+        content: "\EA08"
+      }
+      
+      .collecticon-book:before {
+        content: "\EA09"
+      }
+      
+      .collecticon-briefcase:before {
+        content: "\EA0A"
+      }
+      
+      .collecticon-calendar:before {
+        content: "\EA0B"
+      }
+      
+      .collecticon-camera:before {
+        content: "\EA0C"
+      }
+      
+      .collecticon-chart-line:before {
+        content: "\EA0D"
+      }
+      
+      .collecticon-chevron-down:before {
+        content: "\EA0E"
+      }
+      
+      .collecticon-chevron-left:before {
+        content: "\EA0F"
+      }
+      
+      .collecticon-chevron-right:before {
+        content: "\EA10"
+      }
+      
+      .collecticon-chevron-step-backward:before {
+        content: "\EA11"
+      }
+      
+      .collecticon-chevron-step-forward:before {
+        content: "\EA12"
+      }
+      
+      .collecticon-chevron-up:before {
+        content: "\EA13"
+      }
+      
+      .collecticon-circle-exclamation:before {
+        content: "\EA14"
+      }
+      
+      .collecticon-circle-information:before {
+        content: "\EA15"
+      }
+      
+      .collecticon-circle-play-next:before {
+        content: "\EA16"
+      }
+      
+      .collecticon-circle-play:before {
+        content: "\EA17"
+      }
+      
+      .collecticon-circle-question:before {
+        content: "\EA18"
+      }
+      
+      .collecticon-circle-stop:before {
+        content: "\EA19"
+      }
+      
+      .collecticon-circle-tick:before {
+        content: "\EA1A"
+      }
+      
+      .collecticon-circle-xmark:before {
+        content: "\EA1B"
+      }
+      
+      .collecticon-clipboard-list:before {
+        content: "\EA1C"
+      }
+      
+      .collecticon-clipboard-tick:before {
+        content: "\EA1D"
+      }
+      
+      .collecticon-clock-back:before {
+        content: "\EA1E"
+      }
+      
+      .collecticon-clock:before {
+        content: "\EA1F"
+      }
+      
+      .collecticon-cog:before {
+        content: "\EA20"
+      }
+      
+      .collecticon-collecticons:before {
+        content: "\EA21"
+      }
+      
+      .collecticon-compass:before {
+        content: "\EA22"
+      }
+      
+      .collecticon-crosshair-2:before {
+        content: "\EA23"
+      }
+      
+      .collecticon-crosshair:before {
+        content: "\EA24"
+      }
+      
+      .collecticon-devseed-inner:before {
+        content: "\EA25"
+      }
+      
+      .collecticon-devseed:before {
+        content: "\EA26"
+      }
+      
+      .collecticon-disc-dollar:before {
+        content: "\EA27"
+      }
+      
+      .collecticon-disc-xmark:before {
+        content: "\EA28"
+      }
+      
+      .collecticon-download:before {
+        content: "\EA29"
+      }
+      
+      .collecticon-drop:before {
+        content: "\EA2A"
+      }
+      
+      .collecticon-envelope:before {
+        content: "\EA2B"
+      }
+      
+      .collecticon-expand-down-left:before {
+        content: "\EA2C"
+      }
+      
+      .collecticon-expand-down-right:before {
+        content: "\EA2D"
+      }
+      
+      .collecticon-expand-top-left:before {
+        content: "\EA2E"
+      }
+      
+      .collecticon-expand-top-right:before {
+        content: "\EA2F"
+      }
+      
+      .collecticon-eye:before {
+        content: "\EA30"
+      }
+      
+      .collecticon-facebook:before {
+        content: "\EA31"
+      }
+      
+      .collecticon-factory:before {
+        content: "\EA32"
+      }
+      
+      .collecticon-flag:before {
+        content: "\EA33"
+      }
+      
+      .collecticon-flame:before {
+        content: "\EA34"
+      }
+      
+      .collecticon-flickr:before {
+        content: "\EA35"
+      }
+      
+      .collecticon-gauge:before {
+        content: "\EA36"
+      }
+      
+      .collecticon-github:before {
+        content: "\EA37"
+      }
+      
+      .collecticon-globe:before {
+        content: "\EA38"
+      }
+      
+      .collecticon-google-plus:before {
+        content: "\EA39"
+      }
+      
+      .collecticon-grid-3x3:before {
+        content: "\EA3A"
+      }
+      
+      .collecticon-hamburger-menu:before {
+        content: "\EA3B"
+      }
+      
+      .collecticon-heart-full:before {
+        content: "\EA3C"
+      }
+      
+      .collecticon-house:before {
+        content: "\EA3D"
+      }
+      
+      .collecticon-human-rights:before {
+        content: "\EA3E"
+      }
+      
+      .collecticon-id-editor:before {
+        content: "\EA3F"
+      }
+      
+      .collecticon-instagram:before {
+        content: "\EA40"
+      }
+      
+      .collecticon-lastfm:before {
+        content: "\EA41"
+      }
+      
+      .collecticon-leaf:before {
+        content: "\EA42"
+      }
+      
+      .collecticon-link:before {
+        content: "\EA43"
+      }
+      
+      .collecticon-linkedin:before {
+        content: "\EA44"
+      }
+      
+      .collecticon-list:before {
+        content: "\EA45"
+      }
+      
+      .collecticon-location:before {
+        content: "\EA46"
+      }
+      
+      .collecticon-lock-2:before {
+        content: "\EA47"
+      }
+      
+      .collecticon-lock-open:before {
+        content: "\EA48"
+      }
+      
+      .collecticon-lock:before {
+        content: "\EA49"
+      }
+      
+      .collecticon-magnifier-left:before {
+        content: "\EA4A"
+      }
+      
+      .collecticon-magnifier-right:before {
+        content: "\EA4B"
+      }
+      
+      .collecticon-map:before {
+        content: "\EA4C"
+      }
+      
+      .collecticon-marker:before {
+        content: "\EA4D"
+      }
+      
+      .collecticon-minus:before {
+        content: "\EA4E"
+      }
+      
+      .collecticon-mobile-phone:before {
+        content: "\EA4F"
+      }
+      
+      .collecticon-page-cog:before {
+        content: "\EA50"
+      }
+      
+      .collecticon-page-lock-open:before {
+        content: "\EA51"
+      }
+      
+      .collecticon-page-tick:before {
+        content: "\EA52"
+      }
+      
+      .collecticon-page:before {
+        content: "\EA53"
+      }
+      
+      .collecticon-pencil:before {
+        content: "\EA54"
+      }
+      
+      .collecticon-picture:before {
+        content: "\EA55"
+      }
+      
+      .collecticon-plus:before {
+        content: "\EA56"
+      }
+      
+      .collecticon-pop-down:before {
+        content: "\EA57"
+      }
+      
+      .collecticon-pop-up:before {
+        content: "\EA58"
+      }
+      
+      .collecticon-printer:before {
+        content: "\EA59"
+      }
+      
+      .collecticon-quote-left:before {
+        content: "\EA5A"
+      }
+      
+      .collecticon-quote-right:before {
+        content: "\EA5B"
+      }
+      
+      .collecticon-repo-fork:before {
+        content: "\EA5C"
+      }
+      
+      .collecticon-resize-in:before {
+        content: "\EA5D"
+      }
+      
+      .collecticon-resize-out:before {
+        content: "\EA5E"
+      }
+      
+      .collecticon-rock:before {
+        content: "\EA5F"
+      }
+      
+      .collecticon-rss-feed:before {
+        content: "\EA60"
+      }
+      
+      .collecticon-satellite:before {
+        content: "\EA61"
+      }
+      
+      .collecticon-share:before {
+        content: "\EA62"
+      }
+      
+      .collecticon-sign-danger:before {
+        content: "\EA63"
+      }
+      
+      .collecticon-skype:before {
+        content: "\EA64"
+      }
+      
+      .collecticon-sliders-horizontal:before {
+        content: "\EA65"
+      }
+      
+      .collecticon-sm-chevron-down:before {
+        content: "\EA66"
+      }
+      
+      .collecticon-sm-chevron-left:before {
+        content: "\EA67"
+      }
+      
+      .collecticon-sm-chevron-right:before {
+        content: "\EA68"
+      }
+      
+      .collecticon-sm-chevron-up:before {
+        content: "\EA69"
+      }
+      
+      .collecticon-sm-minus:before {
+        content: "\EA6A"
+      }
+      
+      .collecticon-sm-plus:before {
+        content: "\EA6B"
+      }
+      
+      .collecticon-sm-square:before {
+        content: "\EA6C"
+      }
+      
+      .collecticon-sm-tick:before {
+        content: "\EA6D"
+      }
+      
+      .collecticon-sm-triangle-down:before {
+        content: "\EA6E"
+      }
+      
+      .collecticon-sm-triangle-left:before {
+        content: "\EA6F"
+      }
+      
+      .collecticon-sm-triangle-right:before {
+        content: "\EA70"
+      }
+      
+      .collecticon-sm-triangle-up:before {
+        content: "\EA71"
+      }
+      
+      .collecticon-sm-xmark:before {
+        content: "\EA72"
+      }
+      
+      .collecticon-sort-asc:before {
+        content: "\EA73"
+      }
+      
+      .collecticon-sort-desc:before {
+        content: "\EA74"
+      }
+      
+      .collecticon-sort-none:before {
+        content: "\EA75"
+      }
+      
+      .collecticon-sort:before {
+        content: "\EA76"
+      }
+      
+      .collecticon-soundcloud:before {
+        content: "\EA77"
+      }
+      
+      .collecticon-spark:before {
+        content: "\EA78"
+      }
+      
+      .collecticon-star-full:before {
+        content: "\EA79"
+      }
+      
+      .collecticon-steam:before {
+        content: "\EA7A"
+      }
+      
+      .collecticon-tag:before {
+        content: "\EA7B"
+      }
+      
+      .collecticon-target:before {
+        content: "\EA7C"
+      }
+      
+      .collecticon-tick:before {
+        content: "\EA7D"
+      }
+      
+      .collecticon-trash-bin:before {
+        content: "\EA7E"
+      }
+      
+      .collecticon-triangle-down:before {
+        content: "\EA7F"
+      }
+      
+      .collecticon-triangle-left:before {
+        content: "\EA80"
+      }
+      
+      .collecticon-triangle-right:before {
+        content: "\EA81"
+      }
+      
+      .collecticon-triangle-up:before {
+        content: "\EA82"
+      }
+      
+      .collecticon-tumblr-reblog:before {
+        content: "\EA83"
+      }
+      
+      .collecticon-tumblr:before {
+        content: "\EA84"
+      }
+      
+      .collecticon-twitter:before {
+        content: "\EA85"
+      }
+      
+      .collecticon-ufo:before {
+        content: "\EA86"
+      }
+      
+      .collecticon-user-group:before {
+        content: "\EA87"
+      }
+      
+      .collecticon-user:before {
+        content: "\EA88"
+      }
+      
+      .collecticon-users:before {
+        content: "\EA89"
+      }
+      
+      .collecticon-xmark:before {
+        content: "\EA8A"
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div id="site-canvas">
+      <ul class="switcher">
+        <li><a href="#" class="active" data-size="16">16</a></li>
+        <li><a href="#" data-size="32">32</a></li>
+        <li><a href="#" data-size="48">48</a></li>
+      </ul>
+
+      <ul id="list" class="icons-list">
+        
+        <li><i class="ico icon collecticon-arrow-down"></i><span class="label">arrow-down</span></li>
+        
+        <li><i class="ico icon collecticon-arrow-left"></i><span class="label">arrow-left</span></li>
+        
+        <li><i class="ico icon collecticon-arrow-loop"></i><span class="label">arrow-loop</span></li>
+        
+        <li><i class="ico icon collecticon-arrow-return"></i><span class="label">arrow-return</span></li>
+        
+        <li><i class="ico icon collecticon-arrow-right"></i><span class="label">arrow-right</span></li>
+        
+        <li><i class="ico icon collecticon-arrow-spin-clockwise"></i><span class="label">arrow-spin-clockwise</span></li>
+        
+        <li><i class="ico icon collecticon-arrow-up"></i><span class="label">arrow-up</span></li>
+        
+        <li><i class="ico icon collecticon-bell"></i><span class="label">bell</span></li>
+        
+        <li><i class="ico icon collecticon-book"></i><span class="label">book</span></li>
+        
+        <li><i class="ico icon collecticon-briefcase"></i><span class="label">briefcase</span></li>
+        
+        <li><i class="ico icon collecticon-calendar"></i><span class="label">calendar</span></li>
+        
+        <li><i class="ico icon collecticon-camera"></i><span class="label">camera</span></li>
+        
+        <li><i class="ico icon collecticon-chart-line"></i><span class="label">chart-line</span></li>
+        
+        <li><i class="ico icon collecticon-chevron-down"></i><span class="label">chevron-down</span></li>
+        
+        <li><i class="ico icon collecticon-chevron-left"></i><span class="label">chevron-left</span></li>
+        
+        <li><i class="ico icon collecticon-chevron-right"></i><span class="label">chevron-right</span></li>
+        
+        <li><i class="ico icon collecticon-chevron-step-backward"></i><span class="label">chevron-step-backward</span></li>
+        
+        <li><i class="ico icon collecticon-chevron-step-forward"></i><span class="label">chevron-step-forward</span></li>
+        
+        <li><i class="ico icon collecticon-chevron-up"></i><span class="label">chevron-up</span></li>
+        
+        <li><i class="ico icon collecticon-circle-exclamation"></i><span class="label">circle-exclamation</span></li>
+        
+        <li><i class="ico icon collecticon-circle-information"></i><span class="label">circle-information</span></li>
+        
+        <li><i class="ico icon collecticon-circle-play-next"></i><span class="label">circle-play-next</span></li>
+        
+        <li><i class="ico icon collecticon-circle-play"></i><span class="label">circle-play</span></li>
+        
+        <li><i class="ico icon collecticon-circle-question"></i><span class="label">circle-question</span></li>
+        
+        <li><i class="ico icon collecticon-circle-stop"></i><span class="label">circle-stop</span></li>
+        
+        <li><i class="ico icon collecticon-circle-tick"></i><span class="label">circle-tick</span></li>
+        
+        <li><i class="ico icon collecticon-circle-xmark"></i><span class="label">circle-xmark</span></li>
+        
+        <li><i class="ico icon collecticon-clipboard-list"></i><span class="label">clipboard-list</span></li>
+        
+        <li><i class="ico icon collecticon-clipboard-tick"></i><span class="label">clipboard-tick</span></li>
+        
+        <li><i class="ico icon collecticon-clock-back"></i><span class="label">clock-back</span></li>
+        
+        <li><i class="ico icon collecticon-clock"></i><span class="label">clock</span></li>
+        
+        <li><i class="ico icon collecticon-cog"></i><span class="label">cog</span></li>
+        
+        <li><i class="ico icon collecticon-collecticons"></i><span class="label">collecticons</span></li>
+        
+        <li><i class="ico icon collecticon-compass"></i><span class="label">compass</span></li>
+        
+        <li><i class="ico icon collecticon-crosshair-2"></i><span class="label">crosshair-2</span></li>
+        
+        <li><i class="ico icon collecticon-crosshair"></i><span class="label">crosshair</span></li>
+        
+        <li><i class="ico icon collecticon-devseed-inner"></i><span class="label">devseed-inner</span></li>
+        
+        <li><i class="ico icon collecticon-devseed"></i><span class="label">devseed</span></li>
+        
+        <li><i class="ico icon collecticon-disc-dollar"></i><span class="label">disc-dollar</span></li>
+        
+        <li><i class="ico icon collecticon-disc-xmark"></i><span class="label">disc-xmark</span></li>
+        
+        <li><i class="ico icon collecticon-download"></i><span class="label">download</span></li>
+        
+        <li><i class="ico icon collecticon-drop"></i><span class="label">drop</span></li>
+        
+        <li><i class="ico icon collecticon-envelope"></i><span class="label">envelope</span></li>
+        
+        <li><i class="ico icon collecticon-expand-down-left"></i><span class="label">expand-down-left</span></li>
+        
+        <li><i class="ico icon collecticon-expand-down-right"></i><span class="label">expand-down-right</span></li>
+        
+        <li><i class="ico icon collecticon-expand-top-left"></i><span class="label">expand-top-left</span></li>
+        
+        <li><i class="ico icon collecticon-expand-top-right"></i><span class="label">expand-top-right</span></li>
+        
+        <li><i class="ico icon collecticon-eye"></i><span class="label">eye</span></li>
+        
+        <li><i class="ico icon collecticon-facebook"></i><span class="label">facebook</span></li>
+        
+        <li><i class="ico icon collecticon-factory"></i><span class="label">factory</span></li>
+        
+        <li><i class="ico icon collecticon-flag"></i><span class="label">flag</span></li>
+        
+        <li><i class="ico icon collecticon-flame"></i><span class="label">flame</span></li>
+        
+        <li><i class="ico icon collecticon-flickr"></i><span class="label">flickr</span></li>
+        
+        <li><i class="ico icon collecticon-gauge"></i><span class="label">gauge</span></li>
+        
+        <li><i class="ico icon collecticon-github"></i><span class="label">github</span></li>
+        
+        <li><i class="ico icon collecticon-globe"></i><span class="label">globe</span></li>
+        
+        <li><i class="ico icon collecticon-google-plus"></i><span class="label">google-plus</span></li>
+        
+        <li><i class="ico icon collecticon-grid-3x3"></i><span class="label">grid-3x3</span></li>
+        
+        <li><i class="ico icon collecticon-hamburger-menu"></i><span class="label">hamburger-menu</span></li>
+        
+        <li><i class="ico icon collecticon-heart-full"></i><span class="label">heart-full</span></li>
+        
+        <li><i class="ico icon collecticon-house"></i><span class="label">house</span></li>
+        
+        <li><i class="ico icon collecticon-human-rights"></i><span class="label">human-rights</span></li>
+        
+        <li><i class="ico icon collecticon-id-editor"></i><span class="label">id-editor</span></li>
+        
+        <li><i class="ico icon collecticon-instagram"></i><span class="label">instagram</span></li>
+        
+        <li><i class="ico icon collecticon-lastfm"></i><span class="label">lastfm</span></li>
+        
+        <li><i class="ico icon collecticon-leaf"></i><span class="label">leaf</span></li>
+        
+        <li><i class="ico icon collecticon-link"></i><span class="label">link</span></li>
+        
+        <li><i class="ico icon collecticon-linkedin"></i><span class="label">linkedin</span></li>
+        
+        <li><i class="ico icon collecticon-list"></i><span class="label">list</span></li>
+        
+        <li><i class="ico icon collecticon-location"></i><span class="label">location</span></li>
+        
+        <li><i class="ico icon collecticon-lock-2"></i><span class="label">lock-2</span></li>
+        
+        <li><i class="ico icon collecticon-lock-open"></i><span class="label">lock-open</span></li>
+        
+        <li><i class="ico icon collecticon-lock"></i><span class="label">lock</span></li>
+        
+        <li><i class="ico icon collecticon-magnifier-left"></i><span class="label">magnifier-left</span></li>
+        
+        <li><i class="ico icon collecticon-magnifier-right"></i><span class="label">magnifier-right</span></li>
+        
+        <li><i class="ico icon collecticon-map"></i><span class="label">map</span></li>
+        
+        <li><i class="ico icon collecticon-marker"></i><span class="label">marker</span></li>
+        
+        <li><i class="ico icon collecticon-minus"></i><span class="label">minus</span></li>
+        
+        <li><i class="ico icon collecticon-mobile-phone"></i><span class="label">mobile-phone</span></li>
+        
+        <li><i class="ico icon collecticon-page-cog"></i><span class="label">page-cog</span></li>
+        
+        <li><i class="ico icon collecticon-page-lock-open"></i><span class="label">page-lock-open</span></li>
+        
+        <li><i class="ico icon collecticon-page-tick"></i><span class="label">page-tick</span></li>
+        
+        <li><i class="ico icon collecticon-page"></i><span class="label">page</span></li>
+        
+        <li><i class="ico icon collecticon-pencil"></i><span class="label">pencil</span></li>
+        
+        <li><i class="ico icon collecticon-picture"></i><span class="label">picture</span></li>
+        
+        <li><i class="ico icon collecticon-plus"></i><span class="label">plus</span></li>
+        
+        <li><i class="ico icon collecticon-pop-down"></i><span class="label">pop-down</span></li>
+        
+        <li><i class="ico icon collecticon-pop-up"></i><span class="label">pop-up</span></li>
+        
+        <li><i class="ico icon collecticon-printer"></i><span class="label">printer</span></li>
+        
+        <li><i class="ico icon collecticon-quote-left"></i><span class="label">quote-left</span></li>
+        
+        <li><i class="ico icon collecticon-quote-right"></i><span class="label">quote-right</span></li>
+        
+        <li><i class="ico icon collecticon-repo-fork"></i><span class="label">repo-fork</span></li>
+        
+        <li><i class="ico icon collecticon-resize-in"></i><span class="label">resize-in</span></li>
+        
+        <li><i class="ico icon collecticon-resize-out"></i><span class="label">resize-out</span></li>
+        
+        <li><i class="ico icon collecticon-rock"></i><span class="label">rock</span></li>
+        
+        <li><i class="ico icon collecticon-rss-feed"></i><span class="label">rss-feed</span></li>
+        
+        <li><i class="ico icon collecticon-satellite"></i><span class="label">satellite</span></li>
+        
+        <li><i class="ico icon collecticon-share"></i><span class="label">share</span></li>
+        
+        <li><i class="ico icon collecticon-sign-danger"></i><span class="label">sign-danger</span></li>
+        
+        <li><i class="ico icon collecticon-skype"></i><span class="label">skype</span></li>
+        
+        <li><i class="ico icon collecticon-sliders-horizontal"></i><span class="label">sliders-horizontal</span></li>
+        
+        <li><i class="ico icon collecticon-sm-chevron-down"></i><span class="label">sm-chevron-down</span></li>
+        
+        <li><i class="ico icon collecticon-sm-chevron-left"></i><span class="label">sm-chevron-left</span></li>
+        
+        <li><i class="ico icon collecticon-sm-chevron-right"></i><span class="label">sm-chevron-right</span></li>
+        
+        <li><i class="ico icon collecticon-sm-chevron-up"></i><span class="label">sm-chevron-up</span></li>
+        
+        <li><i class="ico icon collecticon-sm-minus"></i><span class="label">sm-minus</span></li>
+        
+        <li><i class="ico icon collecticon-sm-plus"></i><span class="label">sm-plus</span></li>
+        
+        <li><i class="ico icon collecticon-sm-square"></i><span class="label">sm-square</span></li>
+        
+        <li><i class="ico icon collecticon-sm-tick"></i><span class="label">sm-tick</span></li>
+        
+        <li><i class="ico icon collecticon-sm-triangle-down"></i><span class="label">sm-triangle-down</span></li>
+        
+        <li><i class="ico icon collecticon-sm-triangle-left"></i><span class="label">sm-triangle-left</span></li>
+        
+        <li><i class="ico icon collecticon-sm-triangle-right"></i><span class="label">sm-triangle-right</span></li>
+        
+        <li><i class="ico icon collecticon-sm-triangle-up"></i><span class="label">sm-triangle-up</span></li>
+        
+        <li><i class="ico icon collecticon-sm-xmark"></i><span class="label">sm-xmark</span></li>
+        
+        <li><i class="ico icon collecticon-sort-asc"></i><span class="label">sort-asc</span></li>
+        
+        <li><i class="ico icon collecticon-sort-desc"></i><span class="label">sort-desc</span></li>
+        
+        <li><i class="ico icon collecticon-sort-none"></i><span class="label">sort-none</span></li>
+        
+        <li><i class="ico icon collecticon-sort"></i><span class="label">sort</span></li>
+        
+        <li><i class="ico icon collecticon-soundcloud"></i><span class="label">soundcloud</span></li>
+        
+        <li><i class="ico icon collecticon-spark"></i><span class="label">spark</span></li>
+        
+        <li><i class="ico icon collecticon-star-full"></i><span class="label">star-full</span></li>
+        
+        <li><i class="ico icon collecticon-steam"></i><span class="label">steam</span></li>
+        
+        <li><i class="ico icon collecticon-tag"></i><span class="label">tag</span></li>
+        
+        <li><i class="ico icon collecticon-target"></i><span class="label">target</span></li>
+        
+        <li><i class="ico icon collecticon-tick"></i><span class="label">tick</span></li>
+        
+        <li><i class="ico icon collecticon-trash-bin"></i><span class="label">trash-bin</span></li>
+        
+        <li><i class="ico icon collecticon-triangle-down"></i><span class="label">triangle-down</span></li>
+        
+        <li><i class="ico icon collecticon-triangle-left"></i><span class="label">triangle-left</span></li>
+        
+        <li><i class="ico icon collecticon-triangle-right"></i><span class="label">triangle-right</span></li>
+        
+        <li><i class="ico icon collecticon-triangle-up"></i><span class="label">triangle-up</span></li>
+        
+        <li><i class="ico icon collecticon-tumblr-reblog"></i><span class="label">tumblr-reblog</span></li>
+        
+        <li><i class="ico icon collecticon-tumblr"></i><span class="label">tumblr</span></li>
+        
+        <li><i class="ico icon collecticon-twitter"></i><span class="label">twitter</span></li>
+        
+        <li><i class="ico icon collecticon-ufo"></i><span class="label">ufo</span></li>
+        
+        <li><i class="ico icon collecticon-user-group"></i><span class="label">user-group</span></li>
+        
+        <li><i class="ico icon collecticon-user"></i><span class="label">user</span></li>
+        
+        <li><i class="ico icon collecticon-users"></i><span class="label">users</span></li>
+        
+        <li><i class="ico icon collecticon-xmark"></i><span class="label">xmark</span></li>
+        
+      </ul>
+    </div>
+
+    <script>
+      var elements = document.querySelectorAll('.switcher a');
+      [].forEach.call(elements, function(el) {
+        el.addEventListener('click', function(event) {
+          event.preventDefault();
+          
+          var size = this.getAttribute('data-size');
+          document.getElementById('list').className = 'icons-list size-' + size;
+
+          var elements = document.querySelectorAll('.switcher a');
+          [].forEach.call(elements, function(e) {
+            e.className = '';
+          });
+          this.className = 'active';
+        });
+      });
+    </script>
+  </body>
+</html>
