@@ -1,0 +1,47 @@
+.dataTables_length {
+	float:left;
+}
+
+.paginate_button, a.paginate_button, span.ellipsis {
+	color: #fff;
+	padding: 8px;
+	border-bottom:4px solid #222;
+}
+
+span a.paginate_button, span.ellipsis, .previous, .next {
+	background: #267FB3;
+}
+
+span a.paginate_button:hover, a.current {
+	cursor: pointer;
+	color:#fff;
+	border-bottom: 4px solid #3EBDD6;
+}
+
+.previous:hover, .next:hover {
+	cursor: pointer;
+	color:#fff;
+	border-bottom: 4px solid #3EBDD6;
+}
+
+.disabled {
+	cursor: default;
+	background: #264965;
+}
+
+.disabled:hover {
+	color:#fff;
+}
+
+.previous {
+	border-radius: 4px 0 0 4px;
+}
+
+.next {
+	border-radius: 0 4px 4px 0;
+}
+
+
+.current {
+	background: #18B2E8;
+}
