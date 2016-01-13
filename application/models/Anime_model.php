@@ -44,15 +44,26 @@ class Anime_model extends CI_Model {
 		return $this->db->get();
 	}
 
-	public function select_all($start = 0, $limit = null, $rate = "PG-13"){
+	public function select_all($start = 0, $limit = null, $search = array("search_type" => "null")){
 		$this->db->select('*');
 		$this->db->from($this->tbl);
 		if($limit != null):
 			$this->db->limit($limit, $start);
 		endif;
-		if($rate != null):
-			$this->db->where('kode_rate', $rate);
+
+		if($search['search_type'] != null):
+
+			switch ($search['search_type']):
+				case 'like':
+				$this->db->like($search['column'], $search['value']);
+				break;
+				case 'combination';
+				$this->db->where($search['condition_column'], $search['cond_value']);
+				$this->db->or_like($search['column'], $search['value']);
+				break;
+			endswitch;
 		endif;
+
 		$this->db->order_by('idanime', "DESC");
 
 		return $this->db->get();

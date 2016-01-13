@@ -107,10 +107,10 @@
                         <span class="fa-angle-right fa right-arrow text-right"></span>
                       </a>
                       <ul class="nav nav-list tree">
-                        <li><a href="<?php echo site_url('dashboard/animes/') ?>">Daftar Anime</a></li>
-                        <li><a href="topnav.html">Set Featured Anime</a></li>
-                        <li><a href="boxed.html">Tambah Anime</a></li>
-                        <li><a href="#">Tambah Episode</a></li>
+                        <li><a href="<?php echo site_url('dashboard/animes/') ?>">Daftar List Anime</a></li>
+                        <li><a href="<?php echo site_url('dashboard/animes/set_featured/') ?>">Set Featured Anime</a></li>
+                        <li><a href="<?php echo site_url('dashboard/animes/tambah_anime/') ?>">Tambah Anime</a></li>
+                        <li><a href="<?php echo site_url('dashboard/animes/tambah_episode/') ?>">Tambah Episode</a></li>
                       </ul>
                     </li>
                     <li class="ripple">

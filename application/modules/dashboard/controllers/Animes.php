@@ -47,6 +47,43 @@ class Animes extends CI_Controller {
 		echo $hosting->namahosting;
 	}
 
+	public function listanimes(){
+		if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])){
+			die("Sorry, you're not using the right method.");
+		}
+
+		$start = filter_var($this->input->post("start"), FILTER_SANITIZE_NUMBER_INT, FILTER_FLAG_STRIP_HIGH);
+		$end = filter_var($this->input->post("end"), FILTER_SANITIZE_NUMBER_INT, FILTER_FLAG_STRIP_HIGH);
+		$page = filter_var($this->input->post("page"), FILTER_SANITIZE_NUMBER_INT, FILTER_FLAG_STRIP_HIGH);
+
+		//validate page number is really numaric
+		if(!is_numeric($page) && !is_numeric($end) && !is_numeric($start)){
+			die('Invalid page number!');
+		}
+
+		$end = $end - $start;
+		$animes = $this->anime_model->select_all($start, $end)->result();
+		$rating = $this->rating;
+		$data = null;
+
+		foreach ($animes as $anime):
+			$data .= '<tr>
+	                    <td>'.$anime->idanime.'</td>
+	                    <td>'.$anime->title_anime.'</td>
+	                    <td>'.$anime->date_published.'</td>
+	                    <td>'.$anime->max_episodes.'</td>
+	                    <td>'.date("M, d Y",$anime->created_date).'</td>
+	                    <td>'.$anime->status.'</td>
+	                    <td>
+	                      <a class="btn btn-success" href="'.site_url('dashboard/animes/edit/'.$anime->idanime.'/').'"><i class="fa fa-edit"></i></a>
+	                      <a class="btn btn-danger" href="'.site_url('dashboard/animes/delete/'.$anime->idanime.'/').'"><i class="fa fa-trash"></i></a>
+	                    </td>
+	                  </tr>';
+		endforeach;
+
+		echo $data;
+	}
+
 	public function episodesearch(){
 
 		if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])){
@@ -65,8 +102,7 @@ class Animes extends CI_Controller {
 		$rating = $this->rating;
 		$data = null;
 
-		foreach ($animes as $episode) {
-			$result = $rating->get($episode->idanime);
+		foreach ($animes as $episode):
 			$data .= '<tr class="edit_tr" id="'.$episode->idepisode.'">
 	                      <td>'.$episode->idepisode.'</td>
 	                      <td>'.$episode->title_anime.'</td>
@@ -85,7 +121,8 @@ class Animes extends CI_Controller {
 	                      </td>
 	                      <td>'.date("M, d Y",$episode->date_added).'</td>
 	                    </tr>';
-		}
+		endforeach;
+
 		echo $data;
 
 		echo '<script type="text/javascript">
@@ -126,7 +163,44 @@ class Animes extends CI_Controller {
               });
             });
           </script>';
-	}	
+	}
+
+	public function animesearch(){
+
+		if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])){
+			die("Sorry, you're not using the right method.");
+		}
+
+		$query = $this->input->get("keyword");
+
+		$state = array(
+			'search_type' => 'like',
+			'column' => 'title_anime',
+			'value' => $query
+			);
+
+		$animes = $this->anime_model->select_all(null, null, $state)->result();
+		$hostings = $this->hosting_model->select_all()->result();
+		$rating = $this->rating;
+		$data = null;
+
+		foreach ($animes as $anime):
+			$data .= '<tr>
+	                    <td>'.$anime->idanime.'</td>
+	                    <td>'.$anime->title_anime.'</td>
+	                    <td>'.$anime->date_published.'</td>
+	                    <td>'.$anime->max_episodes.'</td>
+	                    <td>'.date("M, d Y",$anime->created_date).'</td>
+	                    <td>'.$anime->status.'</td>
+	                    <td>
+	                      <a class="btn btn-success" href="'.site_url('dashboard/animes/edit/'.$anime->idanime.'/').'"><i class="fa fa-edit"></i></a>
+	                      <a class="btn btn-danger" href="'.site_url('dashboard/animes/delete/'.$anime->idanime.'/').'"><i class="fa fa-trash"></i></a>
+	                    </td>
+	                  </tr>';
+		endforeach;
+
+		echo $data;
+	}		
 
 	public function listepisode(){
 
