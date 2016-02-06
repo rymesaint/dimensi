@@ -40,7 +40,7 @@ class Ajax extends CI_Controller {
 					</div>
 				</a>
 				<div class="block-anime-img">
-					<a href="'.base_url().'anime/'.$episode->permalink.'/'.$episode->episode.'/"><img src="'.base_url().'uploads/'.$episode->image.'" class="img img-responsive"></a>
+					<a href="'.base_url().'anime/'.$episode->permalink.'/'.$episode->episode.'/"><img src="'.base_url().'uploads/no-image.jpg" data-src="'.base_url().'uploads/'.$episode->image.'" class="img img-responsive"></a>
 				</div>
 				<div class="block-anime-meta">
 					<table class="table table-stripped">
@@ -62,6 +62,13 @@ class Ajax extends CI_Controller {
 			</div>';
 		}
 		echo $data;
+
+		echo '<script src="'.base_url().'assets/js/unveil.min.js"></script>';
+		echo '<script>
+		  $(document).ready(function() {
+			  $("img").unveil();
+			});
+		</script>';
 	}
 
 	public function searchGenre(){
@@ -94,7 +101,7 @@ class Ajax extends CI_Controller {
 					</div>
 				</a>
 				<div class="block-anime-img">
-					<a href="'.base_url().'anime/'.$episode->permalink.'/"><img src="'.base_url().'uploads/'.$episode->image.'" class="img img-responsive"></a>
+					<a href="'.base_url().'anime/'.$episode->permalink.'/"><img src="'.base_url().'uploads/no-image.jpg" data-src="'.base_url().'uploads/'.$episode->image.'" class="img img-responsive"></a>
 				</div>
 				<div class="block-anime-meta">
 					<table class="table table-stripped">
@@ -116,5 +123,12 @@ class Ajax extends CI_Controller {
 			</div>';
 		}
 		echo $data;
+
+		echo '<script src="'.base_url().'assets/js/unveil.min.js"></script>';
+		echo '<script>
+		  $(document).ready(function() {
+			  $("img").unveil();
+			});
+		</script>';
 	}
 }

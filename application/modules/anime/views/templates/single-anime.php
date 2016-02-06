@@ -33,7 +33,7 @@
 			<article class="single-anime">
 				<div class="thumb-single-img">
 					<img src="<?php echo base_url().'uploads/'.$anime->image ?>" class="img img-responsive">
-					<div class="caption-photo"><?php echo "Photos of ".$anime->title_anime ?></div>
+					<div class="caption-photo"><?php echo "Foto dari ".$anime->title_anime ?></div>
 				</div>
 				<div class="synopsis">
 					<p><?php echo $anime->synopsis ?></p>
@@ -68,7 +68,7 @@
 				<table class="table table-stripped">
 					<tr>
 						<td>Tipe</td>
-						<td>: <?php echo strtoupper($anime->series) ?></td>
+						<td>: <?php echo humanize($anime->series) ?></td>
 					</tr>
 					<tr>
 						<td>Episode</td>
@@ -88,7 +88,7 @@
 					</tr>
 					<tr>
 						<td>Rating</td>
-						<td>: PG-13</td>
+						<td>: <?php echo humanize($anime->kode_rate) ?></td>
 					</tr>
 				</table>
 			</div>

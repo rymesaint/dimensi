@@ -57,18 +57,26 @@
 		<div class="wrapper-comments">
 			<h5 class="title-comments">Comments</h5>
 			<div id="disqus_thread"></div>
-			<script type="text/javascript">
-			    /* * * CONFIGURATION VARIABLES * * */
-			    var disqus_shortname = 'ryme-anime';
-			    var disqus_title = 'Streaming <?php echo $anime->title_anime; ?> Episode <?php echo $eAnime->episode; ?>';
-			    var disqus_url = '<?php echo base_url()."anime/".$anime->permalink."/".$eAnime->episode."/"; ?>';
+			<script>
+			/**
+			* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+			* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+			*/
+			
+			var disqus_config = function () {
+			this.page.url = 'http://<?php echo base_url()."anime/".$anime->permalink."/".$eAnime->episode."/"; ?>'; // Replace PAGE_URL with your page's canonical URL variable
+			this.page.identifier = '41<?php echo $anime->idanime; ?>';
+			this.page.title = 'Streaming <?php echo $anime->title_anime; ?> Episode <?php echo $eAnime->episode; ?>';
+			};
+			
+			(function() { // DON'T EDIT BELOW THIS LINE
+			var d = document, s = d.createElement('script');
 
-			    /* * * DON'T EDIT BELOW THIS LINE * * */
-			    (function() {
-			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-			    })();
+			s.src = '//ryme-anime.disqus.com/embed.js';
+
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+			})();
 			</script>
 			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 		</div>
@@ -81,7 +89,7 @@
 				<table class="table table-stripped">
 					<tr>
 						<td>Tipe</td>
-						<td>: <?php echo strtoupper($anime->series) ?></td>
+						<td>: <?php echo humanize($anime->series) ?></td>
 					</tr>
 					<tr>
 						<td>Episode</td>
@@ -101,7 +109,7 @@
 					</tr>
 					<tr>
 						<td>Rating</td>
-						<td>: PG-13</td>
+						<td>: <?php echo humanize($anime->kode_rate) ?></td>
 					</tr>
 				</table>
 			</div>

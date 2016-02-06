@@ -6486,3 +6486,8 @@ ul li a:focus {
   }
 
 }
+
+.preview-image img {
+  width: 150px;
+  height: 150px;
+}

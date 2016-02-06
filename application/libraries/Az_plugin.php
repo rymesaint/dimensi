@@ -22,15 +22,34 @@ class Az_plugin {
 		return $data;
 	}
 
+	public function modelAnime($str){
+		$this->CI->db->select('*');
+		$this->CI->db->from($this->tbl);
+		$this->CI->db->like('title_anime', $str, 'after');
+
+		return $this->CI->db->get()->result();
+	}
+
 	public function createList(){
 		$alfa 	= 'A';
 		$data 	= null;
-		do {
-			$this->CI->db->select('*');
-			$this->CI->db->from($this->tbl);
-			$this->CI->db->like('title_anime', $alfa, 'after');
 
-			$result = $this->CI->db->get()->result();
+		$data .= '<div class="wrap-alfabet">';
+		$data .= '<div class="title_alfabet" id="0_9">0 - 9 <div class="backtotop scrollTop"><a title="Back to Top" href="#top"><i class="glyphicon glyphicon-arrow-up"></i></a></div></div>
+	<div class="clearfix"></div>';
+		$data .= '<ul class="alfa_list_anime">';
+		for ($i=0; $i <= 9 ; $i++):
+			$numbers = Az_plugin::modelAnime($i);
+			foreach ($numbers as $obj_num):
+			$data .= '<li><a href="'.base_url().'anime/'.$obj_num->permalink.'/" title="'.$obj_num->title_anime.'">'.$obj_num->title_anime.'</a></li>';
+			endforeach;
+		endfor;
+		$data .= '</ul>';
+		$data .= '<div class="clearfix"></div></div>';
+
+		do {
+
+			$result = Az_plugin::modelAnime($alfa);
 
 			$data .= '<div class="wrap-alfabet">';
 			$data .= '<div class="title_alfabet" id="'.$alfa.'">'.$alfa.' <div class="backtotop scrollTop"><a title="Back to Top" href="#top"><i class="glyphicon glyphicon-arrow-up"></i></a></div></div>

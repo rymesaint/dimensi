@@ -1,10 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?><?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-function base_url(){
-	return "http://localhost/dimensi/";
-}
 ?><!DOCTYPE html>
 <html lang="en">
 <head>

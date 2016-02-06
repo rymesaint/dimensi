@@ -493,3 +493,8 @@ ul.bxslider li img {
 	float: left;
 	padding: 5px;
 }
+
+.loader-wrap {
+	text-align: center;
+	margin-top: 50px;
+}

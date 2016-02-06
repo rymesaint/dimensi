@@ -16,6 +16,15 @@ class Genre_model extends CI_Model {
 		return $this->db->get();
 	}
 
+	public function select_like($genre, $start = 0, $limit = 6){
+		$this->db->select('*');
+		$this->db->from($this->tbl);
+		$this->db->like('namegenre', $genre);
+		$this->db->limit($limit, $start);
+
+		return $this->db->get();
+	}
+
 	public function select_all(){
 		$this->db->select('*');
 		$this->db->from($this->tbl);

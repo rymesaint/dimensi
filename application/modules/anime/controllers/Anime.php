@@ -17,15 +17,15 @@ class Anime extends CI_Controller {
 	public function viewAnime($permalink){
 		$title = $this->config_model->select_by_function('SITE_TITLE')->row();
 
-		$info['anime'] = $this->anime_model->select_by_permalink($permalink)->row();
-
+		$info['anime'] = $this->anime_model->select_by_permalink($permalink, null)->row();
+		
 		if(empty($info['anime'])):
 			show_404();
 		endif;
 		
 		$data['website'] = $title->content;
 		$data['title'] = $info['anime']->title_anime.' | '.$title->content;
-		$data['description'] = substr($info['anime']->synopsis, 0, 150);
+		$data['description'] = character_limiter(strip_tags($info['anime']->synopsis), 150, '...');
 		$data['keywords'] = null;
 
 		$info['rating'] = $this->rating->get($info['anime']->idanime);
@@ -54,7 +54,7 @@ class Anime extends CI_Controller {
 
 		$data['website'] = $title->content;
 		$data['title'] = 'Jelajahi Anime | '.$title->content;
-		$data['description'] = substr($desc, 0, 150);
+		$data['description'] = character_limiter($desc, 150, '...');
 		$data['keywords'] = null;
 
 
@@ -94,7 +94,7 @@ class Anime extends CI_Controller {
 		$info['anime'] = $this->anime_model->select_by_permalink($permalink)->row();
 		$info['sAnime'] = $this->episode_model->select_by_episode($info['anime']->idanime, $episode)->result();
 		$info['hashcode'] = "0";
-
+		
 		if(empty($info['sAnime'])):
 			show_404();
 		endif;
@@ -117,7 +117,7 @@ class Anime extends CI_Controller {
 
 		$data['website'] = $title->content;
 		$data['title'] = $info['anime']->title_anime.' Episode '.$info['eAnime']->episode.' | '.$title->content;
-		$data['description'] = substr($info['anime']->synopsis, 0, 150);
+		$data['description'] = character_limiter(strip_tags($info['anime']->synopsis), 150, '...');
 		$data['keywords'] = null;
 
 		$info['rating'] = $this->rating->get($info['anime']->idanime);
@@ -158,7 +158,7 @@ class Anime extends CI_Controller {
 
 		$data['website'] = $title->content;
 		$data['title'] = $info['anime']->title_anime.' Episode '.$info['eAnime']->episode.' | '.$title->content;
-		$data['description'] = substr($info['anime']->synopsis, 0, 150);
+		$data['description'] = character_limiter($info['anime']->synopsis, 150, '...');
 		$data['keywords'] = null;
 
 		$info['rating'] = $this->rating->get($info['anime']->idanime);
@@ -168,47 +168,6 @@ class Anime extends CI_Controller {
 
 		$this->load->view('header', $data);
 		$this->load->view('templates/single-episode', $info);
-		$this->load->view('footer', $data);
-	}
-
-	public function page(){
-		$title = $this->config_model->select_by_function('SITE_TITLE')->row();
-		$description = $this->config_model->select_by_function('SITE_DESCRIPTION')->row();
-		$keywords = $this->config_model->select_by_function('SITE_TAGS')->row();
-
-		$data['title'] = $title->content;
-		$data['website'] = $data['title'];
-		$data['description'] = $description->content;
-		$data['keywords'] = $keywords->content;
-
-		$data['count_anime'] = $this->counter_model->count_table('anime');
-		$data['count_episode'] = $this->counter_model->count_table('episodes');
-		$data['count_genre'] = $this->counter_model->count_table('genres');
-		$data['count_user'] = $this->counter_model->count_table('users');
-		
-		$config = array(
-					'base_url' => base_url()."page/",
-					'total_rows' => $this->episode_model->record_count(),
-					'per_page' => 4,
-					'num_links' => 5,
-					'first_link' => "Awal",
-					'last_link' => "Akhir"
-				);
-		$per_page = 4;
-
-  		$this->pagination->initialize($config);
-
-   		$page = number_format($this->uri->segment(3));
-   		
-   		$info['links'] = $this->pagination->create_links();
-
-		$info['popular'] = $this->anime_model->popular_anime()->result();
-    	$info['anime'] = $this->episode_model->select_all($per_page, $page)->result();
-
-		$info['rating'] = $this->rating;
-
-		$this->load->view('header', $data);
-		$this->load->view('templates/beranda', $info);
 		$this->load->view('footer', $data);
 	}
 }

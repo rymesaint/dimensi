@@ -12,7 +12,7 @@
 	<?php
 		echo meta('description', $description);
 		echo meta('keywords', $keywords);
-		echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
+		echo link_tag('assets/favicon.png', 'shortcut icon', 'image/png');
 		echo link_tag('assets/css/bootstrap.min.css');
     echo link_tag('assets/css/icons.css');
 		echo link_tag('assets/css/portal-anime.css');
@@ -27,7 +27,7 @@
         ),
         array(
                 'name' => 'author',
-                'content' => 'Vijar Sujaswara'
+                'content' => 'Dimensi'
         ),
         array(
                 'name' => 'googlebot',
@@ -58,6 +58,7 @@
 	<meta property="og:site_name" content="<?php echo $website ?>" />
 	<script src="<?php echo base_url().'assets/js/jquery.min.js'; ?>"></script>
   <script src="<?php echo base_url().'assets/js/paging.min.js'; ?>"></script>
+  
   <?php if(current_url() == base_url()): ?>
   <script src="<?php echo base_url().'assets/js/jquery.bxslider.min.js'; ?>"></script>
 	<script>

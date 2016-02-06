@@ -9,6 +9,10 @@ class Episode_model extends CI_Model {
 		$this->tbl = 'episodes';
 	}
 
+	public function set_episode($data){
+		$this->db->insert($this->tbl, $data);
+	}
+
 	public function select_all($limit = 4, $start = 0, $state = false){
 		$this->db->select('idepisode, namahosting, anime.idanime,title_anime,views,username,subname,permalink,image,synopsis,episode,date_added,filesize,hashcode,parentid,sourcevideo');
 		$this->db->from($this->tbl);
@@ -28,6 +32,22 @@ class Episode_model extends CI_Model {
 		$this->db->order_by('date_added', 'desc');
 
 		return $this->db->get();
+	}
+
+	public function checkEpisode($episode, $idanime){
+		$this->db->select('episode');
+		$this->db->from($this->tbl);
+		$this->db->where('episode', $episode);
+		$this->db->where('idanime', $idanime);
+
+		$count = $this->db->get()->num_rows();
+
+		if($count <= 0):
+			return 0;
+		else:
+			$result = $this->db->get()->row();
+			return $result->episode;
+		endif;
 	}
 
 	public function updateEpisode($data, $idepisode){

@@ -31,9 +31,9 @@ class Portal extends CI_Controller {
 
 		switch ($menu) {
 			default:
-			case null:
-				$this->load->view('portal', $data);
-			break;
+			// case null:
+			// 	$this->load->view('portal', $data);
+			// break;
 			case'anime_enter':
 				$info['total_anime'] = $this->episode_model->record_count();
 				

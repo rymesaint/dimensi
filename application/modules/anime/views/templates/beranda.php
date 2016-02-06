@@ -23,7 +23,7 @@
 						<img src="<?php echo base_url().'uploads/'.$limit_episode->image ?>" class="img img-responsive">
 					</div>
 					<div class="title"><a href="<?php echo site_url('anime/'.$limit_episode->permalink) ?>"><?php echo $limit_episode->title_anime ?></a></div>
-					<div class="short-desc"><?php echo substr($limit_episode->synopsis, 0 ,100) ?>...</div>
+					<div class="short-desc"><?php echo character_limiter($limit_episode->synopsis, 100 , '...') ?></div>
 					<div class="clearfix"></div>
 				</div>
 			<?php endforeach; ?>
@@ -36,39 +36,10 @@
 	<section class="content col-lg-8 col-md-8">
 		<div class="wrapper-bullet-title">
 			<i class="glyphicon glyphicon-star"></i>
-			Rilisan Anime Terbaru
+			Rilisan Episode Anime Terbaru
 		</div>
 		<div class="wrapper-content-inside">
 			<div class="loadEpisodes">
-			<?php foreach ($anime as $episode): $result = $rating->get($episode->idanime); ?>
-			<div class="wrapper-block-anime">
-				<a href="<?php echo base_url().'anime/'.$episode->permalink.'/'.$episode->episode.'/' ?>">
-					<div class="block-anime-title">
-					<?php echo $episode->title_anime ?> Episode <span class="episode"><?php echo $episode->episode ?></span>
-					</div>
-				</a>
-				<div class="block-anime-img">
-					<a href="<?php echo base_url().'anime/'.$episode->permalink.'/'.$episode->episode.'/' ?>"><img src="<?php echo base_url().'uploads/'.$episode->image ?>" class="img img-responsive"></a>
-				</div>
-				<div class="block-anime-meta">
-					<table class="table table-stripped">
-						<tr>
-							<td><?php echo $this->lang->line('release_date') ?></td>
-							<td>: <?php echo date('F d Y H:i A', $episode->date_added); ?></td>
-						</tr>
-						<tr>
-							<td>Rating</td>
-							<td>: <?php echo $result->avg ?>/5 dari <?php echo $result->votes ?> pengguna.</td>
-						</tr>
-						<tr>
-							<td>Lihat semua Episode</td>
-							<td>: <a href="<?php echo base_url().'anime/'.$episode->permalink.'/' ?>"><?php echo $episode->title_anime ?></a></td>
-						</tr>
-					</table>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		<?php endforeach; ?>
 			</div>
 			<div class="wrapper-paging">
 				<div id="pagination" class="pagination"></div>
@@ -87,7 +58,7 @@
 						data: dataS,
 						type: 'POST',
 						beforeSend:function(){
-							$(".loadEpisodes").html('<center><i class="fa fa-spinner fa-spin fa-4x"></i></center');
+							$(".loadEpisodes").html('<div class="loader-wrap"><img src="<?php echo base_url() ?>assets/images/waiting.gif"></div>');
 						},
 						success:function(data){
 							$(".loadEpisodes").html(data);

@@ -8,35 +8,6 @@
 		</div>
 		<div class="wrapper-content-inside">
 			<div class="loadEpisodes">
-				<?php foreach ($anime as $episode): $result = $rating->get($episode->idanime); ?>
-				<div class="wrapper-block-anime">
-					<a href="<?php echo base_url().'anime/'.$episode->permalink.'/' ?>">
-						<div class="block-anime-title">
-						<?php echo $episode->title_anime ?></span>
-						</div>
-					</a>
-					<div class="block-anime-img">
-						<a href="<?php echo base_url().'anime/'.$episode->permalink.'/' ?>"><img src="<?php echo base_url().'uploads/'.$episode->image ?>" class="img img-responsive"></a>
-					</div>
-					<div class="block-anime-meta">
-						<table class="table table-stripped">
-							<tr>
-								<td><?php echo $this->lang->line('release_date') ?></td>
-								<td>: <?php echo date('F d Y H:i A', $episode->created_date); ?></td>
-							</tr>
-							<tr>
-								<td>Rating</td>
-								<td>: <?php echo $result->avg ?>/5 dari <?php echo $result->votes ?> pengguna.</td>
-							</tr>
-							<tr>
-								<td>Lihat semua Episode</td>
-								<td>: <a href="<?php echo base_url().'anime/'.$episode->permalink.'/' ?>"><?php echo $episode->title_anime ?></a></td>
-							</tr>
-						</table>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-				<?php endforeach; ?>
 			</div>
 			<div class="wrapper-paging">
 				<div class="pagination"></div>
@@ -55,7 +26,7 @@
 						data: dataS,
 						type: 'POST',
 						beforeSend:function(){
-							$(".loadEpisodes").html('<center><i class="fa fa-spinner fa-spin fa-4x"></i></center');
+							$(".loadEpisodes").html('<div class="loader-wrap"><img src="<?php echo base_url() ?>assets/images/waiting.gif"></div>');
 						},
 						success:function(data){
 							$(".loadEpisodes").html(data);
