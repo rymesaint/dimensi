@@ -17,6 +17,14 @@ class User_model extends CI_Model {
 		return $this->db->get()->num_rows();
 	}
 
+	public function getID($user){
+		$this->db->select('*');
+		$this->db->from($this->tbl);
+		$this->db->where('username', $user);
+
+		return $this->db->get();
+	}
+
 	public function getUser($user){
 		$this->db->select('*');
 		$this->db->from($this->tbl);

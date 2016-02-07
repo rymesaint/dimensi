@@ -65,6 +65,9 @@ $route['ajax/searchGenre'] = 'anime/ajax/searchGenre';
 
 $route['page/(:any)'] = 'anime/anime/page';
 
+$route['user/login'] = 'anime/user/login';
+$route['user/auth'] = 'anime/user/auth';
+
 $route['genre'] = 'anime/genre/listGenre/';
 $route['genre/(:any)'] = 'anime/genre/viewGenre/$1';
 

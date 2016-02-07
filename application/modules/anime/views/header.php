@@ -7,16 +7,14 @@
     echo meta('X-UA-Compatible', 'IE=edge', 'equiv');
     echo meta('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no') 
     ?>
-	<title><?php echo $title ?></title>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
-	<?php
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <title><?php echo $title ?></title>
+ <?php
 		echo meta('description', $description);
 		echo meta('keywords', $keywords);
 		echo link_tag('assets/favicon.png', 'shortcut icon', 'image/png');
 		echo link_tag('assets/css/bootstrap.min.css');
-    echo link_tag('assets/css/icons.css');
-		echo link_tag('assets/css/portal-anime.css');
-		echo link_tag('assets/css/jquery.bxslider.css');
+    echo link_tag('assets/css/dimensi.min.css');
 	?>
 	<?php
 
@@ -57,10 +55,9 @@
 	<meta property="og:url" content="<?php echo current_url() ?>" />
 	<meta property="og:site_name" content="<?php echo $website ?>" />
 	<script src="<?php echo base_url().'assets/js/jquery.min.js'; ?>"></script>
-  <script src="<?php echo base_url().'assets/js/paging.min.js'; ?>"></script>
+  <script src="<?php echo base_url().'assets/js/dimensi.min.js'; ?>"></script>
   
   <?php if(current_url() == base_url()): ?>
-  <script src="<?php echo base_url().'assets/js/jquery.bxslider.min.js'; ?>"></script>
 	<script>
 		$(document).ready(function(){
 		  $('.bxslider').bxSlider({
@@ -97,7 +94,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<?php echo site_url('portal/return_portal/') ?>"><?php echo $this->lang->line('portal') ?></a>
+        <a class="navbar-brand" href="<?php echo base_url() ?>"><img src="<?php echo base_url().'assets/favicon.png' ?>" width="25" height="25" alt="Dimensi"></a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -122,8 +119,9 @@
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="ic ic-user"></span></a>
+            <?php if($this->session->login == null): ?>
             <div class="dropdown-menu" style="padding:5px;width:275px;">
-                <form class="form-horizontal formLogin">
+                <form class="form-horizontal formLogin" action="<?php echo site_url('user/auth/') ?>" method="POST">
   				<fieldset>
   				<div class="form-group">
   				  <div class="col-md-12">
@@ -157,6 +155,16 @@
   				</fieldset>
   				</form>
               </div>
+            <?php else: ?>
+              <ul class="dropdown-menu">
+                <li><a href="#">Profil</a></li>
+                <li><a href="#">Aktivitas</a></li>
+                <li><a href="#">Favorit</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Pengaturan</a></li>
+                <li><a href="#">Keluar</a></li>
+              </ul>
+            <?php endif; ?>
           </li>
           <li><a href="#"><?php echo $this->lang->line('faq') ?></a></li>
         </ul>

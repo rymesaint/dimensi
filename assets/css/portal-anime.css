@@ -119,7 +119,13 @@ a:hover {
 }
 
 .formLogin fieldset div a {
-	color:#fff;
+	color:#8A8A8A;
+	font-size: 11px;
+}
+
+.checkbox label {
+	color:#8A8A8A;
+	font-size: 11px;
 }
 
 ul.bxslider li img {

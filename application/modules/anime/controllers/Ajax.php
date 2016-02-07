@@ -63,7 +63,6 @@ class Ajax extends CI_Controller {
 		}
 		echo $data;
 
-		echo '<script src="'.base_url().'assets/js/unveil.min.js"></script>';
 		echo '<script>
 		  $(document).ready(function() {
 			  $("img").unveil();
@@ -123,8 +122,7 @@ class Ajax extends CI_Controller {
 			</div>';
 		}
 		echo $data;
-
-		echo '<script src="'.base_url().'assets/js/unveil.min.js"></script>';
+		
 		echo '<script>
 		  $(document).ready(function() {
 			  $("img").unveil();
