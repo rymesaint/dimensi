@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Portal extends CI_Controller {
 
 	/**
-	 * Load related model that need to use via ajax
+	 * Load related model
 	 * Load library pagination to use ajax
 	 */
 	public function __construct(){

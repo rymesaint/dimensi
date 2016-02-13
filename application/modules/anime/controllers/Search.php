@@ -3,7 +3,7 @@
 class Search extends CI_Controller {
 
 	/**
-	 * Load related model that need to use via ajax
+	 * Load related model
 	 * 
 	 */
 	public function __construct(){

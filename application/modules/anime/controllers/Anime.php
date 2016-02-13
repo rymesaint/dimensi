@@ -69,7 +69,7 @@ class Anime extends CI_Controller {
 		$data['website'] = $title->content;
 		$data['title'] = $info['anime']->title_anime.' | '.$title->content;
 		$data['description'] = character_limiter(strip_tags($info['anime']->synopsis), 150, '...');
-		$data['keywords'] = null;
+		$data['keywords'] = "download anime ".$info['anime']->title_anime.", streaming anime ".$info['anime']->title_anime;
 
 		/**
 		 * Define variable @info (array) that need to be used in content
@@ -303,7 +303,7 @@ class Anime extends CI_Controller {
 		$data['website'] 		= $title->content;
 		$data['title'] 			= $info['anime']->title_anime.' Episode '.$info['eAnime']->episode.' | '.$title->content;
 		$data['description'] 	= character_limiter(strip_tags($info['anime']->synopsis), 150, '...');
-		$data['keywords'] 		= null;
+		$data['keywords'] 		= "streaming ".$info['anime']->title_anime.", download anime ".$info['anime']->title_anime;
 
 		/**
 		 * Define variable @info (Object) that need to use within template.

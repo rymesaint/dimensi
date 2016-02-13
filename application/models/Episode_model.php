@@ -2,17 +2,40 @@
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Episode_model extends CI_Model {
 
-	private $tbl;
+	private $tbl; // Define variable for table
 
+	/**
+	 * Store table name @tbl
+	 */
 	public function __construct(){
 		parent::__construct();
 		$this->tbl = 'episodes';
 	}
 
+	/**
+	 * Function set_episode($data)
+	 *
+	 * Insert data episode anime into database
+	 *
+	 * Parameters:
+	 * @data (Array)
+	 */
 	public function set_episode($data){
 		$this->db->insert($this->tbl, $data);
 	}
 
+	/**
+	 * Function select_all($limit, $start, $state)
+	 *
+	 * Show all episode anime
+	 *
+	 * Parameters:
+	 * @start (int)
+	 * @limit (int) limit data
+	 * @state (String) Making condition
+	 *
+	 * return @get (Object)
+	 */
 	public function select_all($limit = 4, $start = 0, $state = false){
 		$this->db->select('idepisode, namahosting, anime.idanime,title_anime,views,username,subname,permalink,image,synopsis,episode,date_added,filesize,hashcode,parentid,sourcevideo');
 		$this->db->from($this->tbl);
