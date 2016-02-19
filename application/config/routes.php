@@ -68,6 +68,9 @@ $route['page/(:any)'] = 'anime/anime/page';
 $route['user/login'] = 'anime/user/login';
 $route['user/auth'] = 'anime/user/auth';
 
+$route['download/url/(:any)'] = 'anime/downloads/getLink/$1';
+$route['download/(:any)/(:any)'] = 'anime/downloads/getEpisode/$1/$2';
+
 $route['genre'] = 'anime/genre/listGenre/';
 $route['genre/(:any)'] = 'anime/genre/viewGenre/$1';
 

@@ -300,9 +300,10 @@ class Anime extends CI_Controller {
 		 * Configuring meta tag header
 		 *
 		 */
+		$desc = "Free streaming anime ".$info['anime']->title_anime.' episode '.$info['eAnime']->episode;
 		$data['website'] 		= $title->content;
 		$data['title'] 			= $info['anime']->title_anime.' Episode '.$info['eAnime']->episode.' | '.$title->content;
-		$data['description'] 	= character_limiter(strip_tags($info['anime']->synopsis), 150, '...');
+		$data['description'] 	= character_limiter($desc, 150, '...');
 		$data['keywords'] 		= "streaming ".$info['anime']->title_anime.", download anime ".$info['anime']->title_anime;
 
 		/**

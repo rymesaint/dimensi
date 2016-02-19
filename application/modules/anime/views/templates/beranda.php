@@ -1,14 +1,14 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
 <section class="featured row">
-	<div class="col-lg-8 col-md-8">		
+	<div class="col-lg-8 col-md-8">	
+		<?php if($slider == true): ?>	
 		<ul class="bxslider">
-		  <li><img src="images/thumb-01.jpg" class="img img-responsive" /></li>
-		  <li><img src="images/thumb-02.jpg" class="img img-responsive" /></li>
-		  <li><img src="images/thumb-03.jpg" class="img img-responsive" /></li>
-		  <li><img src="images/thumb-04.jpg" class="img img-responsive" /></li>
-		  <li><img src="images/thumb-05.jpg" class="img img-responsive" /></li>
+			<?php foreach($slide_content as $content): ?>
+				<li><a href="#"><img src="<?php echo base_url().$content->url ?>" title="<?php echo $content->captions ?>" class="img img-responsive" /></a></li>
+			<?php endforeach; ?>
 		</ul>
+		<?php endif; ?>
 	</div>
 	<div class="col-lg-4 col-md-4">
 		<div class="wrapper-box-widget">

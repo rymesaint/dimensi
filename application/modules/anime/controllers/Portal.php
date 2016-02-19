@@ -12,6 +12,7 @@ class Portal extends CI_Controller {
 		$this->load->model('anime_model');
 		$this->load->model('episode_model');
 		$this->load->model('counter_model');
+		$this->load->model('slider_model');
 		$this->load->library('pagination');
 	}
 
@@ -31,6 +32,7 @@ class Portal extends CI_Controller {
 		$title = $this->config_model->select_by_function('SITE_TITLE')->row();
 		$description = $this->config_model->select_by_function('SITE_DESCRIPTION')->row();
 		$keywords = $this->config_model->select_by_function('SITE_TAGS')->row();
+		$slider = $this->config_model->select_by_function('SLIDER_ENABLE')->row();
 
 		/**
 		 * Define variable @data (array) that need to be used in header
@@ -62,6 +64,21 @@ class Portal extends CI_Controller {
 			// break;
 			case'anime_enter':
 				/**
+				 * Fetch data slider is enabled or not
+				 */
+				$info['slider'] = $slider->content;
+
+				/**
+				 * Check condition before fetching data slider
+				 */
+				if($slider->content == true):
+					/**
+					 * Fetch all data slider
+					 */
+					$info['slide_content'] = $this->slider_model->getSlide()->result();
+				endif;
+
+				/**
 				 * Fetch total record anime
 				 */
 				$info['total_anime'] = $this->episode_model->record_count();
@@ -75,6 +92,8 @@ class Portal extends CI_Controller {
 				 * Fetch all episode anime
 				 */
         		$info['anime'] = $this->episode_model->select_all()->result();
+
+
 
 				$info['rating'] = $this->rating;
 

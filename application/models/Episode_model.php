@@ -93,7 +93,7 @@ class Episode_model extends CI_Model {
     }
 
 	public function select_by_episode($idanime, $episode, $streaming = false, $mirrorid = array()){
-		$this->db->select('*');
+		$this->db->select('idepisode,episode,date_added,filesize,hashcode,username,subname,namahosting,parentid');
 		$this->db->from($this->tbl);
 		$this->db->join('users', 'users.iduser=episodes.iduser', 'left');
 		$this->db->join('subs', 'subs.idsub=episodes.idsub','left');

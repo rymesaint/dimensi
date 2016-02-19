@@ -56,17 +56,18 @@
 	<meta property="og:site_name" content="<?php echo $website ?>" />
 	<script src="<?php echo base_url().'assets/js/jquery.min.js'; ?>"></script>
   <script src="<?php echo base_url().'assets/js/dimensi.min.js'; ?>"></script>
-  
   <?php if(current_url() == base_url()): ?>
+  <script src="<?php echo base_url().'assets/js/jquery.bxslider.min.js'; ?>"></script>
 	<script>
 		$(document).ready(function(){
 		  $('.bxslider').bxSlider({
 		  		auto: true,
 		  		mode: 'fade',
-		  		speed: 5000,
+		  		speed: 3000,
 		  		randomStart: true,
 		  		hideControlOnEnd: true,
-		  		adaptiveHeight: false
+		  		adaptiveHeight: false,
+          captions: true
 		  });
 		});
 	</script>
